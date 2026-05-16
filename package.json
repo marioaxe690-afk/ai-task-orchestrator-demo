@@ -1,0 +1,13 @@
+{
+  "name": "ai-task-orchestrator-demo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static demo data for an AI task orchestrator workflow.",
+  "type": "module",
+  "scripts": {
+    "validate:data": "node scripts/validate-data.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

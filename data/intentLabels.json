@@ -1,0 +1,72 @@
+[
+  {
+    "id": "intent_exam_rescue",
+    "name": "Exam rescue",
+    "description": "The user has very limited time before a test and needs a compressed, high-yield plan."
+  },
+  {
+    "id": "intent_solve_problem",
+    "name": "Solve problem",
+    "description": "The user wants help solving a specific question or screenshot."
+  },
+  {
+    "id": "intent_clarify_input",
+    "name": "Clarify input",
+    "description": "The request is underspecified and should be clarified before execution."
+  },
+  {
+    "id": "intent_review_plan",
+    "name": "Review plan",
+    "description": "The user wants a structured study or review schedule."
+  },
+  {
+    "id": "intent_learning_route",
+    "name": "Learning route",
+    "description": "The user wants topics ordered into a learning sequence."
+  },
+  {
+    "id": "intent_priority_judgment",
+    "name": "Priority judgment",
+    "description": "The user wants to know what matters most before doing detailed work."
+  },
+  {
+    "id": "intent_scope_compression",
+    "name": "Scope compression",
+    "description": "The user wants a large study range reduced to a smaller high-yield subset."
+  },
+  {
+    "id": "intent_concept_explanation",
+    "name": "Concept explanation",
+    "description": "The user wants a concept explained before practice or solution steps."
+  },
+  {
+    "id": "intent_feedback_adjustment",
+    "name": "Feedback adjustment",
+    "description": "The user gives feedback and expects the next plan to change."
+  },
+  {
+    "id": "intent_error_review",
+    "name": "Error review",
+    "description": "The user wants wrong answers or weak areas diagnosed and reviewed."
+  },
+  {
+    "id": "intent_timeboxing",
+    "name": "Timeboxing",
+    "description": "The user has a fixed time budget and needs a bounded task loop."
+  },
+  {
+    "id": "intent_multimodal_understanding",
+    "name": "Multimodal understanding",
+    "description": "The user provides an image or image plus text that must be interpreted."
+  },
+  {
+    "id": "intent_atomic_execution",
+    "name": "Atomic execution",
+    "description": "The user needs one small task completed without a larger plan."
+  },
+  {
+    "id": "intent_composite_planning",
+    "name": "Composite planning",
+    "description": "The user needs multiple dependent tasks arranged into an executable workflow."
+  }
+]

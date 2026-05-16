@@ -1,0 +1,86 @@
+[
+  {
+    "id": "feedback-after-clarification-question",
+    "afterTaskId": "task-ask-targeted-question",
+    "question": "你要我先处理题目、知识点、复习计划，还是截图内容？",
+    "positiveNextAction": "Use the answer to select the matching template.",
+    "negativeNextAction": "Offer three selectable options instead of another open question."
+  },
+  {
+    "id": "feedback-after-image-read",
+    "afterTaskId": "task-read-image-context",
+    "question": "我识别到的内容和你想问的是同一部分吗？",
+    "positiveNextAction": "Continue to knowledge point extraction.",
+    "negativeNextAction": "Ask the user to mark or describe the target area."
+  },
+  {
+    "id": "feedback-after-knowledge-points",
+    "afterTaskId": "task-extract-knowledge-points",
+    "question": "这些知识点里，你最不确定的是哪一个？",
+    "positiveNextAction": "Prioritize the user's weakest knowledge point.",
+    "negativeNextAction": "Choose the prerequisite topic with the highest payoff."
+  },
+  {
+    "id": "feedback-after-urgency",
+    "afterTaskId": "task-estimate-urgency",
+    "question": "这个时间压力判断准确吗？",
+    "positiveNextAction": "Proceed with the matching urgency template.",
+    "negativeNextAction": "Re-estimate urgency from the user's corrected deadline."
+  },
+  {
+    "id": "feedback-after-priority",
+    "afterTaskId": "task-prioritize-high-yield",
+    "question": "这个优先级排序符合你的考试范围吗？",
+    "positiveNextAction": "Build the timebox plan from the ranked list.",
+    "negativeNextAction": "Adjust the ranking using the user's stated exam range."
+  },
+  {
+    "id": "feedback-after-scope-compression",
+    "afterTaskId": "task-compress-scope",
+    "question": "压缩后的范围你能接受吗？",
+    "positiveNextAction": "Move into execution or practice.",
+    "negativeNextAction": "Reduce the scope again and explicitly name the risk."
+  },
+  {
+    "id": "feedback-after-timebox",
+    "afterTaskId": "task-build-timebox-plan",
+    "question": "这个时间安排会不会太满？",
+    "positiveNextAction": "Start the first time block.",
+    "negativeNextAction": "Run the plan-too-full adjustment template."
+  },
+  {
+    "id": "feedback-after-concept",
+    "afterTaskId": "task-explain-core-concept",
+    "question": "这个知识点现在能不能用自己的话复述？",
+    "positiveNextAction": "Move to a short practice set.",
+    "negativeNextAction": "Explain again with a simpler example."
+  },
+  {
+    "id": "feedback-after-stepwise-solve",
+    "afterTaskId": "task-solve-example-stepwise",
+    "question": "哪一步开始看不懂？",
+    "positiveNextAction": "Proceed to self-check practice.",
+    "negativeNextAction": "Return to the first unclear step and explain the reason."
+  },
+  {
+    "id": "feedback-after-practice",
+    "afterTaskId": "task-generate-practice-set",
+    "question": "练习里错得最多的是概念、计算还是读题？",
+    "positiveNextAction": "Diagnose the dominant error pattern.",
+    "negativeNextAction": "Ask the user to attempt one item and report the result."
+  },
+  {
+    "id": "feedback-after-error-diagnosis",
+    "afterTaskId": "task-diagnose-error-pattern",
+    "question": "这个错因判断像不像你真实卡住的地方？",
+    "positiveNextAction": "Create targeted correction practice.",
+    "negativeNextAction": "Collect one concrete wrong-answer example."
+  },
+  {
+    "id": "feedback-after-self-check",
+    "afterTaskId": "task-create-self-check",
+    "question": "自测能独立完成吗？",
+    "positiveNextAction": "Advance to the next planned unit.",
+    "negativeNextAction": "Loop back to concept explanation or stepwise example."
+  }
+]

@@ -1,0 +1,34 @@
+<svg width="960" height="540" viewBox="0 0 960 540" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Mock orchestration task board</title>
+  <desc id="desc">Synthetic board screenshot fixture for a task review demo case.</desc>
+  <rect width="960" height="540" fill="#111827"/>
+  <text x="44" y="58" fill="#F9FAFB" font-family="Arial, sans-serif" font-size="28" font-weight="700">AI Orchestrator Board</text>
+  <text x="44" y="88" fill="#9CA3AF" font-family="Arial, sans-serif" font-size="16">Synthetic demo board</text>
+  <g>
+    <rect x="44" y="122" width="260" height="360" rx="16" fill="#1F2937"/>
+    <text x="68" y="158" fill="#D1D5DB" font-family="Arial, sans-serif" font-size="16" font-weight="700">Ready</text>
+    <rect x="68" y="186" width="212" height="86" rx="12" fill="#273449"/>
+    <text x="88" y="218" fill="#F9FAFB" font-family="Arial, sans-serif" font-size="15" font-weight="700">Draft action list</text>
+    <text x="88" y="246" fill="#93C5FD" font-family="Arial, sans-serif" font-size="13">Owner: AI</text>
+    <rect x="68" y="292" width="212" height="86" rx="12" fill="#273449"/>
+    <text x="88" y="324" fill="#F9FAFB" font-family="Arial, sans-serif" font-size="15" font-weight="700">Rank next steps</text>
+    <text x="88" y="352" fill="#93C5FD" font-family="Arial, sans-serif" font-size="13">Owner: AI</text>
+  </g>
+  <g>
+    <rect x="350" y="122" width="260" height="360" rx="16" fill="#1F2937"/>
+    <text x="374" y="158" fill="#D1D5DB" font-family="Arial, sans-serif" font-size="16" font-weight="700">Waiting</text>
+    <rect x="374" y="186" width="212" height="86" rx="12" fill="#334155"/>
+    <text x="394" y="218" fill="#F9FAFB" font-family="Arial, sans-serif" font-size="15" font-weight="700">Confirm scope</text>
+    <text x="394" y="246" fill="#FBBF24" font-family="Arial, sans-serif" font-size="13">Owner: User</text>
+  </g>
+  <g>
+    <rect x="656" y="122" width="260" height="360" rx="16" fill="#1F2937"/>
+    <text x="680" y="158" fill="#D1D5DB" font-family="Arial, sans-serif" font-size="16" font-weight="700">Blocked</text>
+    <rect x="680" y="186" width="212" height="86" rx="12" fill="#451A1A"/>
+    <text x="700" y="218" fill="#F9FAFB" font-family="Arial, sans-serif" font-size="15" font-weight="700">Collect evidence</text>
+    <text x="700" y="246" fill="#FCA5A5" font-family="Arial, sans-serif" font-size="13">Needs source approval</text>
+    <rect x="680" y="292" width="212" height="86" rx="12" fill="#451A1A"/>
+    <text x="700" y="324" fill="#F9FAFB" font-family="Arial, sans-serif" font-size="15" font-weight="700">Publish summary</text>
+    <text x="700" y="352" fill="#FCA5A5" font-family="Arial, sans-serif" font-size="13">Blocked by review</text>
+  </g>
+</svg>

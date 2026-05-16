@@ -1,0 +1,92 @@
+[
+  {
+    "id": "template-exam-rescue",
+    "name": "Exam rescue template",
+    "triggerConditions": ["Urgency is high", "User mentions exam soon", "User needs compressed review"],
+    "atomicTaskIds": ["task-ingest-user-input", "task-detect-intent", "task-estimate-urgency", "task-extract-knowledge-points", "task-prioritize-high-yield", "task-compress-scope", "task-build-timebox-plan", "task-insert-feedback-check"],
+    "estimatedTotalMinutes": 41,
+    "difficulty": "high",
+    "outputGoal": "Produce a short emergency plan that focuses only on high-yield review actions."
+  },
+  {
+    "id": "template-screenshot-solve",
+    "name": "Screenshot solve template",
+    "triggerConditions": ["Input includes image", "User asks how to solve", "Clarification is not required or can be limited"],
+    "atomicTaskIds": ["task-ingest-user-input", "task-read-image-context", "task-extract-knowledge-points", "task-explain-core-concept", "task-solve-example-stepwise", "task-create-self-check"],
+    "estimatedTotalMinutes": 37,
+    "difficulty": "medium",
+    "outputGoal": "Turn a screenshot into a stepwise explanation and a quick understanding check."
+  },
+  {
+    "id": "template-tonight-review-plan",
+    "name": "Tonight review plan template",
+    "triggerConditions": ["User asks for tonight", "Study window is limited", "Plan should be actionable"],
+    "atomicTaskIds": ["task-detect-intent", "task-estimate-urgency", "task-prioritize-high-yield", "task-build-timebox-plan", "task-generate-practice-set", "task-insert-feedback-check"],
+    "estimatedTotalMinutes": 36,
+    "difficulty": "medium",
+    "outputGoal": "Create a time-boxed review plan that fits one evening."
+  },
+  {
+    "id": "template-multi-screenshot-route",
+    "name": "Multi-screenshot route template",
+    "triggerConditions": ["Input includes multiple visible learning objects", "User asks what to learn first", "Sequence matters"],
+    "atomicTaskIds": ["task-ingest-user-input", "task-read-image-context", "task-extract-knowledge-points", "task-map-learning-route", "task-summarize-priority-decision", "task-write-expected-output"],
+    "estimatedTotalMinutes": 35,
+    "difficulty": "high",
+    "outputGoal": "Build a learning route from visible content and explain the order."
+  },
+  {
+    "id": "template-clarify-ambiguous-input",
+    "name": "Clarify ambiguous input template",
+    "triggerConditions": ["User request lacks object or desired output", "Execution would require guessing"],
+    "atomicTaskIds": ["task-ingest-user-input", "task-detect-intent", "task-check-clarification-need", "task-ask-targeted-question"],
+    "estimatedTotalMinutes": 10,
+    "difficulty": "low",
+    "outputGoal": "Ask the smallest question needed before doing work."
+  },
+  {
+    "id": "template-priority-first",
+    "name": "Priority first template",
+    "triggerConditions": ["User asks what matters first", "Scope has multiple candidate topics", "Detailed explanation should wait"],
+    "atomicTaskIds": ["task-detect-intent", "task-extract-knowledge-points", "task-prioritize-high-yield", "task-summarize-priority-decision", "task-mark-skip-items"],
+    "estimatedTotalMinutes": 27,
+    "difficulty": "medium",
+    "outputGoal": "Return a priority decision before detailed teaching or practice."
+  },
+  {
+    "id": "template-compress-review-scope",
+    "name": "Compress review scope template",
+    "triggerConditions": ["User says the scope is too large", "Available time is constrained", "Some work must be skipped"],
+    "atomicTaskIds": ["task-estimate-urgency", "task-prioritize-high-yield", "task-compress-scope", "task-mark-skip-items", "task-create-self-check"],
+    "estimatedTotalMinutes": 28,
+    "difficulty": "medium",
+    "outputGoal": "Shrink the plan to a minimum viable review loop."
+  },
+  {
+    "id": "template-plan-too-full-adjustment",
+    "name": "Plan too full adjustment template",
+    "triggerConditions": ["User says the plan is too full", "A previous plan exists", "The next step should be reduced"],
+    "atomicTaskIds": ["task-adjust-plan-from-feedback", "task-compress-scope", "task-build-timebox-plan", "task-insert-feedback-check"],
+    "estimatedTotalMinutes": 27,
+    "difficulty": "medium",
+    "outputGoal": "Reduce an overloaded plan while preserving the highest-value outcome."
+  },
+  {
+    "id": "template-concept-first",
+    "name": "Concept first template",
+    "triggerConditions": ["User asks to understand before solving", "Concept gap is likely", "Practice should follow explanation"],
+    "atomicTaskIds": ["task-detect-intent", "task-extract-knowledge-points", "task-explain-core-concept", "task-generate-practice-set", "task-create-self-check"],
+    "estimatedTotalMinutes": 31,
+    "difficulty": "medium",
+    "outputGoal": "Teach the concept first, then check readiness for practice."
+  },
+  {
+    "id": "template-error-review-plan",
+    "name": "Error review plan template",
+    "triggerConditions": ["User mentions wrong answers", "Weak area diagnosis is needed", "Plan should adapt from mistakes"],
+    "atomicTaskIds": ["task-diagnose-error-pattern", "task-extract-knowledge-points", "task-prioritize-high-yield", "task-generate-practice-set", "task-adjust-plan-from-feedback"],
+    "estimatedTotalMinutes": 42,
+    "difficulty": "high",
+    "outputGoal": "Use mistakes to choose the next correction and practice loop."
+  }
+]

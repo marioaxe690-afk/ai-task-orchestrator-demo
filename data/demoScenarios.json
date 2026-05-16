@@ -1,0 +1,84 @@
+[
+  {
+    "id": "scenario-exam-rescue",
+    "title": "临考救急编排流",
+    "userInputCaseId": "case-math-video-exam-rescue",
+    "flow": [
+      "Read image plus deadline text",
+      "Detect exam rescue and review plan intents",
+      "Classify as emergency_task",
+      "Extract core knowledge points",
+      "Compress review scope and build timebox plan",
+      "Ask whether the plan is too full"
+    ],
+    "demoHighlight": "Shows how an urgent multimodal request becomes a compressed task plan instead of a long lesson."
+  },
+  {
+    "id": "scenario-screenshot-solve",
+    "title": "截图解题编排流",
+    "userInputCaseId": "case-math-question-solve",
+    "flow": [
+      "Read screenshot context",
+      "Detect solve problem and concept explanation intents",
+      "Classify as multimodal_task",
+      "Extract knowledge points",
+      "Explain concept and solve stepwise",
+      "Attach self-check feedback"
+    ],
+    "demoHighlight": "Shows how solving a screenshot is split into recognition, concept, solution, and feedback."
+  },
+  {
+    "id": "scenario-ambiguous-input",
+    "title": "模糊输入追问流",
+    "userInputCaseId": "case-this-one-unknown",
+    "flow": [
+      "Read short vague input",
+      "Detect clarification intent",
+      "Classify as ambiguous_task",
+      "Mark needsClarification true",
+      "Ask one targeted question"
+    ],
+    "demoHighlight": "Shows that the system avoids guessing when the input object is missing."
+  },
+  {
+    "id": "scenario-priority-first",
+    "title": "先判断优先级流",
+    "userInputCaseId": "case-prioritize-first",
+    "flow": [
+      "Detect priority judgment intent",
+      "Classify as simple_atomic_task",
+      "Extract candidate topics",
+      "Rank high-yield topics",
+      "Summarize priority decision before teaching"
+    ],
+    "demoHighlight": "Shows priority judgment as its own first-class task, not just a side note."
+  },
+  {
+    "id": "scenario-plan-adjustment",
+    "title": "反馈后调整计划流",
+    "userInputCaseId": "case-plan-too-full-feedback",
+    "flow": [
+      "Read user's overload feedback",
+      "Detect feedback adjustment and scope compression intents",
+      "Classify as complex_composite_task",
+      "Adjust plan from feedback",
+      "Rebuild a smaller timebox",
+      "Ask whether the new plan is acceptable"
+    ],
+    "demoHighlight": "Shows the feedback loop changing the next plan instead of repeating the original plan."
+  },
+  {
+    "id": "scenario-learning-route",
+    "title": "多图学习路线流",
+    "userInputCaseId": "case-multi-screenshot-learning-route",
+    "flow": [
+      "Read multimodal input",
+      "Detect learning route and priority intents",
+      "Classify as multimodal_task",
+      "Extract visible knowledge points",
+      "Map prerequisite order",
+      "Write the next learning action"
+    ],
+    "demoHighlight": "Shows how several visible learning objects become an ordered route."
+  }
+]

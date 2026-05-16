@@ -1,0 +1,22 @@
+<svg width="960" height="540" viewBox="0 0 960 540" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Mock math lesson screenshot</title>
+  <desc id="desc">Synthetic screenshot fixture for a math video lesson demo case.</desc>
+  <rect width="960" height="540" fill="#101828"/>
+  <rect x="40" y="40" width="610" height="345" rx="18" fill="#182230"/>
+  <rect x="70" y="72" width="550" height="250" rx="12" fill="#0B1220"/>
+  <text x="100" y="145" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="34" font-weight="700">Linear Equations</text>
+  <text x="100" y="205" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="24">2x + 7 = 19</text>
+  <text x="100" y="255" fill="#93C5FD" font-family="Arial, sans-serif" font-size="24">Step 1: isolate x</text>
+  <rect x="70" y="342" width="550" height="10" rx="5" fill="#334155"/>
+  <rect x="70" y="342" width="260" height="10" rx="5" fill="#38BDF8"/>
+  <circle cx="342" cy="347" r="15" fill="#F8FAFC"/>
+  <rect x="690" y="40" width="230" height="345" rx="18" fill="#1E293B"/>
+  <text x="720" y="92" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="20" font-weight="700">Lesson Notes</text>
+  <rect x="720" y="124" width="165" height="12" rx="6" fill="#64748B"/>
+  <rect x="720" y="154" width="140" height="12" rx="6" fill="#64748B"/>
+  <rect x="720" y="184" width="180" height="12" rx="6" fill="#64748B"/>
+  <rect x="720" y="242" width="150" height="36" rx="10" fill="#2563EB"/>
+  <text x="742" y="266" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="14" font-weight="700">Need practice</text>
+  <rect x="40" y="420" width="880" height="78" rx="18" fill="#172033"/>
+  <text x="70" y="462" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="20">Mock screenshot: no real student data, no private content.</text>
+</svg>

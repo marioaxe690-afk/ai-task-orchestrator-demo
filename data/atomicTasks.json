@@ -1,0 +1,242 @@
+[
+  {
+    "id": "task-ingest-user-input",
+    "name": "Ingest user input",
+    "description": "Read the user's text and available image reference before deciding the next step.",
+    "difficulty": "low",
+    "estimatedMinutes": 2,
+    "inputNeeded": "User text and optional image path.",
+    "completionCriteria": "The available input channels are identified.",
+    "failureRisk": "Missing an image or treating an empty text field as enough context."
+  },
+  {
+    "id": "task-detect-intent",
+    "name": "Detect intent",
+    "description": "Map the request to one or more reusable intent labels.",
+    "difficulty": "medium",
+    "estimatedMinutes": 4,
+    "inputNeeded": "Normalized user input.",
+    "completionCriteria": "At least one intent label is selected with a short rationale.",
+    "failureRisk": "Selecting a solution intent when clarification is required."
+  },
+  {
+    "id": "task-classify-task-type",
+    "name": "Classify task type",
+    "description": "Decide whether the request is atomic, composite, ambiguous, urgent, or multimodal.",
+    "difficulty": "medium",
+    "estimatedMinutes": 3,
+    "inputNeeded": "Detected intent labels and input type.",
+    "completionCriteria": "A single task type is selected.",
+    "failureRisk": "Treating urgent composite work as a normal long-term plan."
+  },
+  {
+    "id": "task-check-clarification-need",
+    "name": "Check clarification need",
+    "description": "Determine whether execution should pause for a targeted question.",
+    "difficulty": "low",
+    "estimatedMinutes": 2,
+    "inputNeeded": "User message, image availability, and expected output.",
+    "completionCriteria": "Clarification need is marked true or false.",
+    "failureRisk": "Inventing missing details instead of asking."
+  },
+  {
+    "id": "task-ask-targeted-question",
+    "name": "Ask targeted question",
+    "description": "Ask one concise question that unlocks the next executable task.",
+    "difficulty": "low",
+    "estimatedMinutes": 2,
+    "inputNeeded": "The missing information category.",
+    "completionCriteria": "The user receives a specific, answerable question.",
+    "failureRisk": "Asking a broad question that does not reduce ambiguity."
+  },
+  {
+    "id": "task-read-image-context",
+    "name": "Read image context",
+    "description": "Extract visible learning content from a mock screenshot reference.",
+    "difficulty": "medium",
+    "estimatedMinutes": 5,
+    "inputNeeded": "A valid or placeholder image path.",
+    "completionCriteria": "Visible topic, task object, and uncertainty are summarized.",
+    "failureRisk": "Overstating details that are not visible."
+  },
+  {
+    "id": "task-extract-knowledge-points",
+    "name": "Extract knowledge points",
+    "description": "Identify the likely knowledge points behind the request.",
+    "difficulty": "medium",
+    "estimatedMinutes": 6,
+    "inputNeeded": "User input and image context if present.",
+    "completionCriteria": "A short list of target knowledge points is produced.",
+    "failureRisk": "Listing too many topics for the user's time budget."
+  },
+  {
+    "id": "task-estimate-urgency",
+    "name": "Estimate urgency",
+    "description": "Classify the user's time pressure as low, medium, or high.",
+    "difficulty": "low",
+    "estimatedMinutes": 2,
+    "inputNeeded": "Time references and exam context.",
+    "completionCriteria": "Urgency is mapped to a valid enum value.",
+    "failureRisk": "Ignoring phrases such as tonight, tomorrow, or two hours later."
+  },
+  {
+    "id": "task-prioritize-high-yield",
+    "name": "Prioritize high-yield topics",
+    "description": "Rank topics by likely payoff under the user's constraints.",
+    "difficulty": "medium",
+    "estimatedMinutes": 8,
+    "inputNeeded": "Knowledge points and urgency.",
+    "completionCriteria": "Topics are ranked with a brief reason.",
+    "failureRisk": "Optimizing for completeness instead of exam payoff."
+  },
+  {
+    "id": "task-compress-scope",
+    "name": "Compress review scope",
+    "description": "Reduce a large study scope to the smallest useful subset.",
+    "difficulty": "medium",
+    "estimatedMinutes": 7,
+    "inputNeeded": "Candidate topics, urgency, and available minutes.",
+    "completionCriteria": "Keep, defer, and skip categories are defined.",
+    "failureRisk": "Removing a prerequisite needed for the selected task."
+  },
+  {
+    "id": "task-build-timebox-plan",
+    "name": "Build timebox plan",
+    "description": "Allocate tasks into fixed time blocks.",
+    "difficulty": "medium",
+    "estimatedMinutes": 10,
+    "inputNeeded": "Available study time and prioritized tasks.",
+    "completionCriteria": "A sequence of time blocks fits the user's budget.",
+    "failureRisk": "Creating a plan that exceeds the available time."
+  },
+  {
+    "id": "task-explain-core-concept",
+    "name": "Explain core concept",
+    "description": "Explain the selected concept before practice or solution work.",
+    "difficulty": "medium",
+    "estimatedMinutes": 8,
+    "inputNeeded": "Target knowledge point and user's requested depth.",
+    "completionCriteria": "Concept, simple example, and key warning are covered.",
+    "failureRisk": "Jumping into problem solving before the concept is understood."
+  },
+  {
+    "id": "task-solve-example-stepwise",
+    "name": "Solve example stepwise",
+    "description": "Walk through a representative problem one step at a time.",
+    "difficulty": "medium",
+    "estimatedMinutes": 10,
+    "inputNeeded": "Problem statement or extracted image content.",
+    "completionCriteria": "Each step includes the operation and reason.",
+    "failureRisk": "Skipping reasoning and only giving the final answer."
+  },
+  {
+    "id": "task-generate-practice-set",
+    "name": "Generate practice set",
+    "description": "Create a small practice set aligned to the selected concept.",
+    "difficulty": "medium",
+    "estimatedMinutes": 9,
+    "inputNeeded": "Concept, difficulty target, and time budget.",
+    "completionCriteria": "A few practice items and self-check answers are prepared.",
+    "failureRisk": "Making practice harder than the user's current level."
+  },
+  {
+    "id": "task-diagnose-error-pattern",
+    "name": "Diagnose error pattern",
+    "description": "Identify whether errors come from concept, calculation, reading, or strategy.",
+    "difficulty": "high",
+    "estimatedMinutes": 12,
+    "inputNeeded": "Wrong answer context or user's error description.",
+    "completionCriteria": "Primary error pattern and next correction are named.",
+    "failureRisk": "Treating all mistakes as carelessness."
+  },
+  {
+    "id": "task-map-learning-route",
+    "name": "Map learning route",
+    "description": "Order topics by prerequisite and review payoff.",
+    "difficulty": "high",
+    "estimatedMinutes": 14,
+    "inputNeeded": "Topic list, screenshots, or course outline.",
+    "completionCriteria": "A sequence with prerequisites and next action is produced.",
+    "failureRisk": "Putting advanced topics before prerequisites."
+  },
+  {
+    "id": "task-assemble-composite-plan",
+    "name": "Assemble composite plan",
+    "description": "Connect selected atomic tasks into a coherent workflow.",
+    "difficulty": "high",
+    "estimatedMinutes": 12,
+    "inputNeeded": "Task type, intent labels, and recommended template.",
+    "completionCriteria": "Atomic tasks are ordered with dependencies implied by sequence.",
+    "failureRisk": "Combining too many tasks for the user's goal."
+  },
+  {
+    "id": "task-write-expected-output",
+    "name": "Write expected output",
+    "description": "Turn the internal plan into a concise user-facing response target.",
+    "difficulty": "low",
+    "estimatedMinutes": 4,
+    "inputNeeded": "Selected task flow and output goal.",
+    "completionCriteria": "Expected output is clear, bounded, and actionable.",
+    "failureRisk": "Using vague output that cannot be evaluated."
+  },
+  {
+    "id": "task-insert-feedback-check",
+    "name": "Insert feedback check",
+    "description": "Add a question that determines whether the user can proceed.",
+    "difficulty": "low",
+    "estimatedMinutes": 3,
+    "inputNeeded": "The task that just completed.",
+    "completionCriteria": "A specific feedback question is attached to the task.",
+    "failureRisk": "Ending without a next-step decision."
+  },
+  {
+    "id": "task-adjust-plan-from-feedback",
+    "name": "Adjust plan from feedback",
+    "description": "Modify the next action when the user says the current plan is too hard, too full, or unclear.",
+    "difficulty": "medium",
+    "estimatedMinutes": 7,
+    "inputNeeded": "User feedback and current task plan.",
+    "completionCriteria": "Plan is shortened, reordered, or clarified.",
+    "failureRisk": "Ignoring feedback and repeating the same plan."
+  },
+  {
+    "id": "task-summarize-priority-decision",
+    "name": "Summarize priority decision",
+    "description": "Explain why one item should happen before another.",
+    "difficulty": "low",
+    "estimatedMinutes": 4,
+    "inputNeeded": "Prioritized topics or tasks.",
+    "completionCriteria": "The top priority and rationale are stated.",
+    "failureRisk": "Giving a ranking without a usable reason."
+  },
+  {
+    "id": "task-mark-skip-items",
+    "name": "Mark skip items",
+    "description": "Identify low-yield work that should be skipped under time pressure.",
+    "difficulty": "medium",
+    "estimatedMinutes": 5,
+    "inputNeeded": "Scope list and urgency.",
+    "completionCriteria": "Skip items and risks are explicitly named.",
+    "failureRisk": "Pretending the user can cover everything."
+  },
+  {
+    "id": "task-create-self-check",
+    "name": "Create self-check",
+    "description": "Create a quick check for whether the user has understood the current unit.",
+    "difficulty": "medium",
+    "estimatedMinutes": 6,
+    "inputNeeded": "Completed concept or practice task.",
+    "completionCriteria": "Self-check question and pass/fail next action are defined.",
+    "failureRisk": "Using a check that is too easy to reveal misunderstanding."
+  },
+  {
+    "id": "task-log-demo-state",
+    "name": "Log demo state",
+    "description": "Record the current demo stage for frontend display.",
+    "difficulty": "low",
+    "estimatedMinutes": 2,
+    "inputNeeded": "Current flow step and selected IDs.",
+    "completionCriteria": "Demo state can be rendered without extra inference.",
+    "failureRisk": "Losing the link between visible UI state and data IDs."
+  }
+]

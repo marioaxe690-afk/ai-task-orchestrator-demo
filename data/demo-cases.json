@@ -1,0 +1,342 @@
+{
+  "schemaVersion": "1.0.0",
+  "datasetId": "ai-task-orchestrator-demo",
+  "updatedAt": "2026-05-16",
+  "cases": [
+    {
+      "id": "case-math-video-lesson",
+      "title": "Turn a math video into a study plan",
+      "locale": "en-US",
+      "scenario": "A learner uploads a short mock screenshot from a math lesson and asks what to do next.",
+      "status": "ready",
+      "input": {
+        "sourceType": "screenshot",
+        "userMessage": "I watched this lesson but still do not know how to practice. Break it into steps.",
+        "imagePath": "assets/screenshots/math-video-001.svg",
+        "constraints": [
+          "Keep the plan under 30 minutes.",
+          "Start with the most likely missing concept.",
+          "Do not assume access to the original video."
+        ]
+      },
+      "classification": {
+        "domain": "education",
+        "intent": "study_plan",
+        "confidence": 0.92,
+        "riskLevel": "low"
+      },
+      "orchestration": {
+        "summary": "Identify the concept gap, create a short review pass, then generate practice and self-check steps.",
+        "tasks": [
+          {
+            "id": "task-identify-topic",
+            "title": "Identify the target concept",
+            "description": "Extract the lesson topic and likely prerequisite from the screenshot context.",
+            "owner": "ai",
+            "priority": "high",
+            "status": "done",
+            "estimatedMinutes": 3,
+            "dependencies": [],
+            "tools": [
+              "vision_summary"
+            ]
+          },
+          {
+            "id": "task-review-example",
+            "title": "Create a focused review",
+            "description": "Explain the concept using one compact worked example before assigning practice.",
+            "owner": "ai",
+            "priority": "high",
+            "status": "ready",
+            "estimatedMinutes": 7,
+            "dependencies": [
+              "task-identify-topic"
+            ],
+            "tools": [
+              "lesson_planner"
+            ]
+          },
+          {
+            "id": "task-generate-practice",
+            "title": "Generate practice questions",
+            "description": "Create three progressively harder practice items and one self-check answer key.",
+            "owner": "ai",
+            "priority": "medium",
+            "status": "ready",
+            "estimatedMinutes": 12,
+            "dependencies": [
+              "task-review-example"
+            ],
+            "tools": [
+              "question_generator"
+            ]
+          },
+          {
+            "id": "task-user-self-check",
+            "title": "Ask learner to self-check",
+            "description": "Pause for the learner to solve the items and report which step failed.",
+            "owner": "user",
+            "priority": "medium",
+            "status": "waiting",
+            "estimatedMinutes": 8,
+            "dependencies": [
+              "task-generate-practice"
+            ],
+            "tools": []
+          }
+        ]
+      },
+      "responsePreview": "I will turn the screenshot into a 30-minute study path: identify the concept, review one example, practice three items, then self-check.",
+      "tags": [
+        "education",
+        "screenshot",
+        "decomposition"
+      ]
+    },
+    {
+      "id": "case-ambiguous-homework",
+      "title": "Clarify an ambiguous homework request",
+      "locale": "en-US",
+      "scenario": "A user sends an unclear math prompt and expects the system to avoid guessing.",
+      "status": "ready",
+      "input": {
+        "sourceType": "text",
+        "userMessage": "Can you solve this and explain it? The question says simplify the expression, but I am not sure what expression.",
+        "imagePath": null,
+        "constraints": [
+          "Ask for missing information before solving.",
+          "Offer examples of what the user can send next."
+        ]
+      },
+      "classification": {
+        "domain": "education",
+        "intent": "clarification",
+        "confidence": 0.81,
+        "riskLevel": "low"
+      },
+      "orchestration": {
+        "summary": "Detect missing input, ask a targeted clarification question, and prepare the solver workflow after the user responds.",
+        "tasks": [
+          {
+            "id": "task-detect-missing-expression",
+            "title": "Detect missing expression",
+            "description": "Confirm that the core math expression is absent from the request.",
+            "owner": "ai",
+            "priority": "high",
+            "status": "done",
+            "estimatedMinutes": 1,
+            "dependencies": [],
+            "tools": [
+              "input_checker"
+            ]
+          },
+          {
+            "id": "task-ask-clarifying-question",
+            "title": "Ask for the expression",
+            "description": "Request the exact expression or a screenshot before attempting a solution.",
+            "owner": "ai",
+            "priority": "high",
+            "status": "ready",
+            "estimatedMinutes": 2,
+            "dependencies": [
+              "task-detect-missing-expression"
+            ],
+            "tools": [
+              "clarification_prompt"
+            ]
+          },
+          {
+            "id": "task-prepare-solver",
+            "title": "Prepare solver path",
+            "description": "Queue the solve-and-explain workflow for when the missing input arrives.",
+            "owner": "ai",
+            "priority": "medium",
+            "status": "blocked",
+            "estimatedMinutes": 4,
+            "dependencies": [
+              "task-ask-clarifying-question"
+            ],
+            "tools": [
+              "math_solver"
+            ]
+          }
+        ]
+      },
+      "responsePreview": "I need the expression first. Send the exact text or a clear screenshot, then I can simplify it step by step.",
+      "tags": [
+        "clarification",
+        "guardrail",
+        "education"
+      ]
+    },
+    {
+      "id": "case-research-brief",
+      "title": "Plan a research brief from a broad request",
+      "locale": "en-US",
+      "scenario": "A founder asks for a short competitive research brief with clear execution steps.",
+      "status": "draft",
+      "input": {
+        "sourceType": "text",
+        "userMessage": "Make a quick brief about AI scheduling assistants for small teams. I need the key angles, not a long report.",
+        "imagePath": null,
+        "constraints": [
+          "Keep final output under 800 words.",
+          "Use source notes separately from the final brief.",
+          "Flag assumptions."
+        ]
+      },
+      "classification": {
+        "domain": "business",
+        "intent": "research_planning",
+        "confidence": 0.88,
+        "riskLevel": "medium"
+      },
+      "orchestration": {
+        "summary": "Scope the market question, collect source notes, synthesize product angles, and draft a concise brief.",
+        "tasks": [
+          {
+            "id": "task-scope-question",
+            "title": "Scope the research question",
+            "description": "Define target buyer, comparison set, and output constraints.",
+            "owner": "ai",
+            "priority": "high",
+            "status": "ready",
+            "estimatedMinutes": 5,
+            "dependencies": [],
+            "tools": [
+              "scope_builder"
+            ]
+          },
+          {
+            "id": "task-collect-source-notes",
+            "title": "Collect source notes",
+            "description": "Gather current notes from official pages and credible product materials.",
+            "owner": "ai",
+            "priority": "high",
+            "status": "blocked",
+            "estimatedMinutes": 20,
+            "dependencies": [
+              "task-scope-question"
+            ],
+            "tools": [
+              "web_research"
+            ]
+          },
+          {
+            "id": "task-synthesize-angles",
+            "title": "Synthesize key angles",
+            "description": "Group findings into buyer pain, product promise, workflow fit, and adoption risk.",
+            "owner": "ai",
+            "priority": "medium",
+            "status": "blocked",
+            "estimatedMinutes": 12,
+            "dependencies": [
+              "task-collect-source-notes"
+            ],
+            "tools": [
+              "synthesis"
+            ]
+          },
+          {
+            "id": "task-draft-brief",
+            "title": "Draft the brief",
+            "description": "Write an under-800-word brief with assumptions and source-note references.",
+            "owner": "ai",
+            "priority": "medium",
+            "status": "blocked",
+            "estimatedMinutes": 15,
+            "dependencies": [
+              "task-synthesize-angles"
+            ],
+            "tools": [
+              "brief_writer"
+            ]
+          }
+        ]
+      },
+      "responsePreview": "I will first narrow the buyer and comparison set, then gather source notes before drafting the short brief.",
+      "tags": [
+        "research",
+        "business",
+        "planning"
+      ]
+    },
+    {
+      "id": "case-task-board-review",
+      "title": "Review an orchestration board",
+      "locale": "en-US",
+      "scenario": "A product reviewer inspects a mock task board and asks what is blocked.",
+      "status": "ready",
+      "input": {
+        "sourceType": "screenshot",
+        "userMessage": "Look at this board and tell me which tasks need attention first.",
+        "imagePath": "assets/screenshots/task-board-overview.svg",
+        "constraints": [
+          "Prioritize blocked or waiting tasks.",
+          "Return a short action list.",
+          "Do not invent owners beyond the visible labels."
+        ]
+      },
+      "classification": {
+        "domain": "productivity",
+        "intent": "board_review",
+        "confidence": 0.9,
+        "riskLevel": "low"
+      },
+      "orchestration": {
+        "summary": "Read visible board state, rank blocked items, then produce the next action list.",
+        "tasks": [
+          {
+            "id": "task-read-board-state",
+            "title": "Read board state",
+            "description": "Extract visible columns, owners, and blocked markers from the screenshot.",
+            "owner": "ai",
+            "priority": "high",
+            "status": "done",
+            "estimatedMinutes": 4,
+            "dependencies": [],
+            "tools": [
+              "vision_summary"
+            ]
+          },
+          {
+            "id": "task-rank-attention-items",
+            "title": "Rank attention items",
+            "description": "Prioritize blocked work before ready or in-progress tasks.",
+            "owner": "ai",
+            "priority": "high",
+            "status": "ready",
+            "estimatedMinutes": 5,
+            "dependencies": [
+              "task-read-board-state"
+            ],
+            "tools": [
+              "priority_ranker"
+            ]
+          },
+          {
+            "id": "task-write-action-list",
+            "title": "Write action list",
+            "description": "Return a concise list of owner-specific next actions.",
+            "owner": "ai",
+            "priority": "medium",
+            "status": "ready",
+            "estimatedMinutes": 5,
+            "dependencies": [
+              "task-rank-attention-items"
+            ],
+            "tools": [
+              "action_writer"
+            ]
+          }
+        ]
+      },
+      "responsePreview": "The blocked items should be handled first, followed by waiting user decisions and then normal ready tasks.",
+      "tags": [
+        "productivity",
+        "screenshot",
+        "prioritization"
+      ]
+    }
+  ]
+}
