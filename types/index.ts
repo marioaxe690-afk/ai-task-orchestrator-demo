@@ -1,3 +1,4 @@
+// Main type entry for the six structured demo data JSON files.
 export type InputType = "text" | "image" | "image_text";
 
 export type TaskType =

@@ -26,7 +26,7 @@ const recommendedTemplate = userInputCase.recommendedTemplateId
   : undefined;
 
 if (userInputCase.recommendedTemplateId && !recommendedTemplate) {
-  throw new Error(`Missing template: ${userInputCase.recommendedTemplateId}`);
+  throw new Error(`Missing composite task template: ${userInputCase.recommendedTemplateId}`);
 }
 
 const templateTasks = recommendedTemplate
@@ -40,7 +40,10 @@ const templateTasks = recommendedTemplate
   : [];
 
 const templateTaskIds = new Set(templateTasks.map((task) => task.id));
-const relatedFeedbackLoops = feedbackLoops.filter((loop) => templateTaskIds.has(loop.afterTaskId));
+
+const relatedFeedbackLoops = feedbackLoops.filter((loop) =>
+  templateTaskIds.has(loop.afterTaskId)
+);
 
 export const assembledDemo = {
   scenario,

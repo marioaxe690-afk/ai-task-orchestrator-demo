@@ -1,92 +1,92 @@
 [
   {
     "id": "template-exam-rescue",
-    "name": "Exam rescue template",
-    "triggerConditions": ["Urgency is high", "User mentions exam soon", "User needs compressed review"],
+    "name": "临考数学冲刺任务",
+    "triggerConditions": ["紧急程度为 high", "用户提到明天考试或马上考试", "需要压缩复习范围"],
     "atomicTaskIds": ["task-ingest-user-input", "task-detect-intent", "task-estimate-urgency", "task-extract-knowledge-points", "task-prioritize-high-yield", "task-compress-scope", "task-build-timebox-plan", "task-insert-feedback-check"],
     "estimatedTotalMinutes": 41,
     "difficulty": "high",
-    "outputGoal": "Produce a short emergency plan that focuses only on high-yield review actions."
+    "outputGoal": "输出临考可执行冲刺计划，优先保留高收益知识点和反馈检查。"
   },
   {
     "id": "template-screenshot-solve",
-    "name": "Screenshot solve template",
-    "triggerConditions": ["Input includes image", "User asks how to solve", "Clarification is not required or can be limited"],
+    "name": "数学截图理解任务",
+    "triggerConditions": ["输入包含截图", "用户想理解截图或题目", "可以先识别内容再拆解任务"],
     "atomicTaskIds": ["task-ingest-user-input", "task-read-image-context", "task-extract-knowledge-points", "task-explain-core-concept", "task-solve-example-stepwise", "task-create-self-check"],
     "estimatedTotalMinutes": 37,
     "difficulty": "medium",
-    "outputGoal": "Turn a screenshot into a stepwise explanation and a quick understanding check."
+    "outputGoal": "把截图转成可理解的知识点、步骤解释和自检问题。"
   },
   {
     "id": "template-tonight-review-plan",
-    "name": "Tonight review plan template",
-    "triggerConditions": ["User asks for tonight", "Study window is limited", "Plan should be actionable"],
+    "name": "今晚三小时复习计划",
+    "triggerConditions": ["用户要求今晚复习", "学习窗口有限", "计划必须能按时间盒执行"],
     "atomicTaskIds": ["task-detect-intent", "task-estimate-urgency", "task-prioritize-high-yield", "task-build-timebox-plan", "task-generate-practice-set", "task-insert-feedback-check"],
     "estimatedTotalMinutes": 36,
     "difficulty": "medium",
-    "outputGoal": "Create a time-boxed review plan that fits one evening."
+    "outputGoal": "生成三小时内可执行的复习顺序、练习安排和反馈节点。"
   },
   {
     "id": "template-multi-screenshot-route",
-    "name": "Multi-screenshot route template",
-    "triggerConditions": ["Input includes multiple visible learning objects", "User asks what to learn first", "Sequence matters"],
+    "name": "多张截图学习路线规划",
+    "triggerConditions": ["输入包含多个学习对象", "用户要求先后顺序", "知识点之间存在依赖"],
     "atomicTaskIds": ["task-ingest-user-input", "task-read-image-context", "task-extract-knowledge-points", "task-map-learning-route", "task-summarize-priority-decision", "task-write-expected-output"],
     "estimatedTotalMinutes": 35,
     "difficulty": "high",
-    "outputGoal": "Build a learning route from visible content and explain the order."
+    "outputGoal": "根据多张截图整理学习路线、先修关系和下一步任务。"
   },
   {
     "id": "template-clarify-ambiguous-input",
-    "name": "Clarify ambiguous input template",
-    "triggerConditions": ["User request lacks object or desired output", "Execution would require guessing"],
+    "name": "模糊数学求助澄清任务",
+    "triggerConditions": ["用户只说这个不会", "缺少题目或目标", "直接执行会依赖猜测"],
     "atomicTaskIds": ["task-ingest-user-input", "task-detect-intent", "task-check-clarification-need", "task-ask-targeted-question"],
     "estimatedTotalMinutes": 10,
     "difficulty": "low",
-    "outputGoal": "Ask the smallest question needed before doing work."
+    "outputGoal": "先问出最小必要信息，再进入识别、解题或计划。"
   },
   {
     "id": "template-priority-first",
-    "name": "Priority first template",
-    "triggerConditions": ["User asks what matters first", "Scope has multiple candidate topics", "Detailed explanation should wait"],
+    "name": "数学题解析任务",
+    "triggerConditions": ["用户要求先判断重点", "存在多个候选知识点", "详细讲解应在优先级之后"],
     "atomicTaskIds": ["task-detect-intent", "task-extract-knowledge-points", "task-prioritize-high-yield", "task-summarize-priority-decision", "task-mark-skip-items"],
     "estimatedTotalMinutes": 27,
     "difficulty": "medium",
-    "outputGoal": "Return a priority decision before detailed teaching or practice."
+    "outputGoal": "先输出题目或知识点优先级，再决定是否进入步骤解析。"
   },
   {
     "id": "template-compress-review-scope",
-    "name": "Compress review scope template",
-    "triggerConditions": ["User says the scope is too large", "Available time is constrained", "Some work must be skipped"],
+    "name": "零基础临时补救任务",
+    "triggerConditions": ["用户基础薄弱", "范围过大", "必须舍弃低收益任务"],
     "atomicTaskIds": ["task-estimate-urgency", "task-prioritize-high-yield", "task-compress-scope", "task-mark-skip-items", "task-create-self-check"],
     "estimatedTotalMinutes": 28,
     "difficulty": "medium",
-    "outputGoal": "Shrink the plan to a minimum viable review loop."
+    "outputGoal": "把零散或过大的复习范围压缩成最小补救闭环。"
   },
   {
     "id": "template-plan-too-full-adjustment",
-    "name": "Plan too full adjustment template",
-    "triggerConditions": ["User says the plan is too full", "A previous plan exists", "The next step should be reduced"],
+    "name": "计划过满后的压缩调整任务",
+    "triggerConditions": ["用户反馈计划太满", "已有计划需要调整", "下一步必须减少负担"],
     "atomicTaskIds": ["task-adjust-plan-from-feedback", "task-compress-scope", "task-build-timebox-plan", "task-insert-feedback-check"],
     "estimatedTotalMinutes": 27,
     "difficulty": "medium",
-    "outputGoal": "Reduce an overloaded plan while preserving the highest-value outcome."
+    "outputGoal": "压缩过满计划，保留最高价值任务并重新安排时间盒。"
   },
   {
     "id": "template-concept-first",
-    "name": "Concept first template",
-    "triggerConditions": ["User asks to understand before solving", "Concept gap is likely", "Practice should follow explanation"],
+    "name": "先讲知识点任务",
+    "triggerConditions": ["用户要求先理解概念", "概念缺口明显", "练习应在解释之后"],
     "atomicTaskIds": ["task-detect-intent", "task-extract-knowledge-points", "task-explain-core-concept", "task-generate-practice-set", "task-create-self-check"],
     "estimatedTotalMinutes": 31,
     "difficulty": "medium",
-    "outputGoal": "Teach the concept first, then check readiness for practice."
+    "outputGoal": "先降低解释难度，再用少量练习验证理解。"
   },
   {
     "id": "template-error-review-plan",
-    "name": "Error review plan template",
-    "triggerConditions": ["User mentions wrong answers", "Weak area diagnosis is needed", "Plan should adapt from mistakes"],
-    "atomicTaskIds": ["task-diagnose-error-pattern", "task-extract-knowledge-points", "task-prioritize-high-yield", "task-generate-practice-set", "task-adjust-plan-from-feedback"],
+    "name": "混乱学习任务整理",
+    "triggerConditions": ["用户提到错题或薄弱点", "学习任务混乱", "需要从错误中调整路径"],
+    "atomicTaskIds": ["task-diagnose-error-pattern", "task-diagnose-weak-points", "task-extract-knowledge-points", "task-prioritize-high-yield", "task-generate-practice-set", "task-adjust-plan-from-feedback"],
     "estimatedTotalMinutes": 42,
     "difficulty": "high",
-    "outputGoal": "Use mistakes to choose the next correction and practice loop."
+    "outputGoal": "把错题、薄弱点和补救动作整理成下一轮学习任务。"
   }
 ]

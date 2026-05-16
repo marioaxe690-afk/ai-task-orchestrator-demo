@@ -1,242 +1,262 @@
 [
   {
     "id": "task-ingest-user-input",
-    "name": "Ingest user input",
-    "description": "Read the user's text and available image reference before deciding the next step.",
+    "name": "提取题目文字",
+    "description": "从用户文本、截图说明或可见材料中提取可用于编排的题目文字与上下文线索。",
     "difficulty": "low",
-    "estimatedMinutes": 2,
-    "inputNeeded": "User text and optional image path.",
-    "completionCriteria": "The available input channels are identified.",
-    "failureRisk": "Missing an image or treating an empty text field as enough context."
+    "estimatedMinutes": 3,
+    "inputNeeded": "用户文本、截图路径或截图说明。",
+    "completionCriteria": "题目对象、用户原话和可用上下文被整理成一段可处理输入。",
+    "failureRisk": "只读取用户情绪表达，遗漏真正要处理的题目或截图内容。"
   },
   {
     "id": "task-detect-intent",
-    "name": "Detect intent",
-    "description": "Map the request to one or more reusable intent labels.",
+    "name": "判断用户目标",
+    "description": "把用户输入映射到一个或多个意图标签，判断用户到底想识别、理解、解题、计划还是调整。",
     "difficulty": "medium",
     "estimatedMinutes": 4,
-    "inputNeeded": "Normalized user input.",
-    "completionCriteria": "At least one intent label is selected with a short rationale.",
-    "failureRisk": "Selecting a solution intent when clarification is required."
+    "inputNeeded": "规范化后的用户输入、图片存在状态和历史反馈。",
+    "completionCriteria": "至少选择一个意图标签，并给出简短依据。",
+    "failureRisk": "把临考求助误判成普通解题，或把模糊输入误判成明确任务。"
   },
   {
     "id": "task-classify-task-type",
-    "name": "Classify task type",
-    "description": "Decide whether the request is atomic, composite, ambiguous, urgent, or multimodal.",
+    "name": "判断任务类型",
+    "description": "判断请求是简单元任务、复杂组合任务、模糊任务、紧急任务还是多模态任务。",
     "difficulty": "medium",
     "estimatedMinutes": 3,
-    "inputNeeded": "Detected intent labels and input type.",
-    "completionCriteria": "A single task type is selected.",
-    "failureRisk": "Treating urgent composite work as a normal long-term plan."
+    "inputNeeded": "输入类型、意图标签、紧急程度和是否包含图片。",
+    "completionCriteria": "输出一个合法 taskType，并能解释为什么不是其他类型。",
+    "failureRisk": "把需要拆解的复杂任务当成单步任务，导致输出不可执行。"
   },
   {
     "id": "task-check-clarification-need",
-    "name": "Check clarification need",
-    "description": "Determine whether execution should pause for a targeted question.",
+    "name": "判断是否需要追问",
+    "description": "判断当前信息是否足够执行，如果对象、目标或时间约束缺失则暂停并追问。",
     "difficulty": "low",
     "estimatedMinutes": 2,
-    "inputNeeded": "User message, image availability, and expected output.",
-    "completionCriteria": "Clarification need is marked true or false.",
-    "failureRisk": "Inventing missing details instead of asking."
+    "inputNeeded": "用户输入、识别内容和预期输出。",
+    "completionCriteria": "needsClarification 被明确标记为 true 或 false。",
+    "failureRisk": "在信息不足时直接猜测，导致后续任务偏离用户真实需求。"
   },
   {
     "id": "task-ask-targeted-question",
-    "name": "Ask targeted question",
-    "description": "Ask one concise question that unlocks the next executable task.",
+    "name": "生成追问问题",
+    "description": "生成一个最小、具体、可回答的问题，用来解除当前执行阻塞。",
     "difficulty": "low",
     "estimatedMinutes": 2,
-    "inputNeeded": "The missing information category.",
-    "completionCriteria": "The user receives a specific, answerable question.",
-    "failureRisk": "Asking a broad question that does not reduce ambiguity."
+    "inputNeeded": "缺失的信息类别，例如目标、截图区域、时间或完成标准。",
+    "completionCriteria": "追问问题能让用户用一句话补足关键信息。",
+    "failureRisk": "追问过宽，用户回答后仍然无法开始任务拆解。"
   },
   {
     "id": "task-read-image-context",
-    "name": "Read image context",
-    "description": "Extract visible learning content from a mock screenshot reference.",
+    "name": "识别截图内容",
+    "description": "识别截图中的学习对象、题目区域、视频讲解状态或任务看板信息。",
     "difficulty": "medium",
     "estimatedMinutes": 5,
-    "inputNeeded": "A valid or placeholder image path.",
-    "completionCriteria": "Visible topic, task object, and uncertainty are summarized.",
-    "failureRisk": "Overstating details that are not visible."
+    "inputNeeded": "截图路径、截图说明或占位图片。",
+    "completionCriteria": "可见内容、疑似知识点和用户可能卡住的位置被总结出来。",
+    "failureRisk": "过度推断截图中没有出现的信息，或忽略截图和文本之间的关系。"
   },
   {
     "id": "task-extract-knowledge-points",
-    "name": "Extract knowledge points",
-    "description": "Identify the likely knowledge points behind the request.",
+    "name": "提取知识点",
+    "description": "从题目、截图或用户描述中提取最可能涉及的知识点和先修依赖。",
     "difficulty": "medium",
     "estimatedMinutes": 6,
-    "inputNeeded": "User input and image context if present.",
-    "completionCriteria": "A short list of target knowledge points is produced.",
-    "failureRisk": "Listing too many topics for the user's time budget."
+    "inputNeeded": "题目文字、截图识别结果和用户目标。",
+    "completionCriteria": "输出短列表，包含核心知识点和必要先修点。",
+    "failureRisk": "列出过多知识点，导致临考或短时间场景无法执行。"
   },
   {
     "id": "task-estimate-urgency",
-    "name": "Estimate urgency",
-    "description": "Classify the user's time pressure as low, medium, or high.",
+    "name": "判断紧急程度",
+    "description": "根据“明天考试”“今晚”“两小时后”等时间信号判断 low、medium 或 high。",
     "difficulty": "low",
     "estimatedMinutes": 2,
-    "inputNeeded": "Time references and exam context.",
-    "completionCriteria": "Urgency is mapped to a valid enum value.",
-    "failureRisk": "Ignoring phrases such as tonight, tomorrow, or two hours later."
+    "inputNeeded": "时间描述、考试时间和用户压力表达。",
+    "completionCriteria": "urgency 被映射为合法枚举，并影响后续计划长度。",
+    "failureRisk": "忽略时间压力，输出过长或过慢的学习路径。"
   },
   {
     "id": "task-prioritize-high-yield",
-    "name": "Prioritize high-yield topics",
-    "description": "Rank topics by likely payoff under the user's constraints.",
+    "name": "判断学习优先级",
+    "description": "在多个知识点或任务中判断最高收益、最先执行和可延后的部分。",
     "difficulty": "medium",
     "estimatedMinutes": 8,
-    "inputNeeded": "Knowledge points and urgency.",
-    "completionCriteria": "Topics are ranked with a brief reason.",
-    "failureRisk": "Optimizing for completeness instead of exam payoff."
+    "inputNeeded": "知识点列表、紧急程度、考试范围和用户时间预算。",
+    "completionCriteria": "输出优先级排序，并说明保留、延后或跳过的理由。",
+    "failureRisk": "追求完整覆盖，反而让用户在有限时间内无法开始。"
   },
   {
     "id": "task-compress-scope",
-    "name": "Compress review scope",
-    "description": "Reduce a large study scope to the smallest useful subset.",
+    "name": "压缩任务范围",
+    "description": "把过大的学习或复习范围压缩成最小可执行集合。",
     "difficulty": "medium",
     "estimatedMinutes": 7,
-    "inputNeeded": "Candidate topics, urgency, and available minutes.",
-    "completionCriteria": "Keep, defer, and skip categories are defined.",
-    "failureRisk": "Removing a prerequisite needed for the selected task."
+    "inputNeeded": "候选任务、优先级、可用时间和用户反馈。",
+    "completionCriteria": "明确保留项、删除项、延后项和压缩后的风险。",
+    "failureRisk": "压缩时删除必要前置知识，导致后续学习断层。"
   },
   {
     "id": "task-build-timebox-plan",
-    "name": "Build timebox plan",
-    "description": "Allocate tasks into fixed time blocks.",
+    "name": "时间盒安排",
+    "description": "把任务放入固定时间块，确保每一段都有目标、产出和检查点。",
     "difficulty": "medium",
     "estimatedMinutes": 10,
-    "inputNeeded": "Available study time and prioritized tasks.",
-    "completionCriteria": "A sequence of time blocks fits the user's budget.",
-    "failureRisk": "Creating a plan that exceeds the available time."
+    "inputNeeded": "可用分钟数、优先任务和用户体力限制。",
+    "completionCriteria": "时间盒总时长不超过预算，每段都可单独执行。",
+    "failureRisk": "计划看起来完整但总时长超出用户实际可用时间。"
   },
   {
     "id": "task-explain-core-concept",
-    "name": "Explain core concept",
-    "description": "Explain the selected concept before practice or solution work.",
+    "name": "降低解释难度",
+    "description": "把抽象知识点改写成更低门槛的解释、例子和常见误区。",
     "difficulty": "medium",
     "estimatedMinutes": 8,
-    "inputNeeded": "Target knowledge point and user's requested depth.",
-    "completionCriteria": "Concept, simple example, and key warning are covered.",
-    "failureRisk": "Jumping into problem solving before the concept is understood."
+    "inputNeeded": "目标知识点、用户当前理解程度和期望深度。",
+    "completionCriteria": "用户能先理解核心概念，再进入题目或练习。",
+    "failureRisk": "直接进入公式和步骤，使用户仍然不知道为什么这样做。"
   },
   {
     "id": "task-solve-example-stepwise",
-    "name": "Solve example stepwise",
-    "description": "Walk through a representative problem one step at a time.",
+    "name": "数学题解析任务",
+    "description": "把代表性题目拆成步骤，每一步说明操作、原因和容易出错的位置。",
     "difficulty": "medium",
     "estimatedMinutes": 10,
-    "inputNeeded": "Problem statement or extracted image content.",
-    "completionCriteria": "Each step includes the operation and reason.",
-    "failureRisk": "Skipping reasoning and only giving the final answer."
+    "inputNeeded": "题目文字、截图识别内容或用户指定的问题。",
+    "completionCriteria": "输出步骤化解析，并标出关键判断点。",
+    "failureRisk": "只给答案或公式，不展示用户可以复用的解题路径。"
   },
   {
     "id": "task-generate-practice-set",
-    "name": "Generate practice set",
-    "description": "Create a small practice set aligned to the selected concept.",
+    "name": "生成练习任务",
+    "description": "生成少量与当前知识点、难度和时间预算匹配的练习任务。",
     "difficulty": "medium",
     "estimatedMinutes": 9,
-    "inputNeeded": "Concept, difficulty target, and time budget.",
-    "completionCriteria": "A few practice items and self-check answers are prepared.",
-    "failureRisk": "Making practice harder than the user's current level."
+    "inputNeeded": "目标知识点、难度等级、可用时间和完成标准。",
+    "completionCriteria": "练习数量有限，且每个练习对应明确检查目标。",
+    "failureRisk": "练习过多或过难，用户无法形成反馈闭环。"
   },
   {
     "id": "task-diagnose-error-pattern",
-    "name": "Diagnose error pattern",
-    "description": "Identify whether errors come from concept, calculation, reading, or strategy.",
+    "name": "错因诊断",
+    "description": "判断错误主要来自概念不清、计算失误、读题偏差还是策略选择错误。",
     "difficulty": "high",
     "estimatedMinutes": 12,
-    "inputNeeded": "Wrong answer context or user's error description.",
-    "completionCriteria": "Primary error pattern and next correction are named.",
-    "failureRisk": "Treating all mistakes as carelessness."
+    "inputNeeded": "错题、错误答案、用户描述或练习反馈。",
+    "completionCriteria": "输出主要错因、证据和对应修正任务。",
+    "failureRisk": "把所有错误归因为粗心，无法生成有效下一步。"
   },
   {
     "id": "task-map-learning-route",
-    "name": "Map learning route",
-    "description": "Order topics by prerequisite and review payoff.",
+    "name": "生成学习计划",
+    "description": "把知识点、截图或任务对象按依赖关系和收益排序成学习路线。",
     "difficulty": "high",
     "estimatedMinutes": 14,
-    "inputNeeded": "Topic list, screenshots, or course outline.",
-    "completionCriteria": "A sequence with prerequisites and next action is produced.",
-    "failureRisk": "Putting advanced topics before prerequisites."
+    "inputNeeded": "知识点列表、截图内容、考试目标和可用时间。",
+    "completionCriteria": "输出学习顺序、每段目标和第一个可执行动作。",
+    "failureRisk": "把高级内容放在先修知识之前，导致路线不可执行。"
   },
   {
     "id": "task-assemble-composite-plan",
-    "name": "Assemble composite plan",
-    "description": "Connect selected atomic tasks into a coherent workflow.",
+    "name": "估算执行时间",
+    "description": "为组合任务中的每个元任务估算耗时，并汇总成总时间。",
     "difficulty": "high",
     "estimatedMinutes": 12,
-    "inputNeeded": "Task type, intent labels, and recommended template.",
-    "completionCriteria": "Atomic tasks are ordered with dependencies implied by sequence.",
-    "failureRisk": "Combining too many tasks for the user's goal."
+    "inputNeeded": "任务模板、元任务列表、难度和用户时间预算。",
+    "completionCriteria": "每个任务都有分钟估算，总时间能支持计划取舍。",
+    "failureRisk": "只输出任务清单，不估算时间，用户无法判断能否完成。"
   },
   {
     "id": "task-write-expected-output",
-    "name": "Write expected output",
-    "description": "Turn the internal plan into a concise user-facing response target.",
+    "name": "生成第一步行动",
+    "description": "把内部编排结果转成用户马上可以执行的第一步行动。",
     "difficulty": "low",
     "estimatedMinutes": 4,
-    "inputNeeded": "Selected task flow and output goal.",
-    "completionCriteria": "Expected output is clear, bounded, and actionable.",
-    "failureRisk": "Using vague output that cannot be evaluated."
+    "inputNeeded": "选中的任务流、输出目标和当前阻塞点。",
+    "completionCriteria": "第一步足够小，用户可以在当前时间窗口内开始。",
+    "failureRisk": "输出过于宏观，用户看完仍然不知道先做什么。"
   },
   {
     "id": "task-insert-feedback-check",
-    "name": "Insert feedback check",
-    "description": "Add a question that determines whether the user can proceed.",
+    "name": "创建反馈节点",
+    "description": "在关键任务后插入反馈问题，用来判断用户能否进入下一步。",
     "difficulty": "low",
     "estimatedMinutes": 3,
-    "inputNeeded": "The task that just completed.",
-    "completionCriteria": "A specific feedback question is attached to the task.",
-    "failureRisk": "Ending without a next-step decision."
+    "inputNeeded": "刚完成的任务、完成标准和可能失败点。",
+    "completionCriteria": "反馈问题能明确区分完成、未完成或需要降级。",
+    "failureRisk": "任务结束后没有反馈入口，系统无法调整路径。"
   },
   {
     "id": "task-adjust-plan-from-feedback",
-    "name": "Adjust plan from feedback",
-    "description": "Modify the next action when the user says the current plan is too hard, too full, or unclear.",
+    "name": "根据反馈调整计划",
+    "description": "根据用户说太难、太满、没完成或已完成来调整下一步任务。",
     "difficulty": "medium",
     "estimatedMinutes": 7,
-    "inputNeeded": "User feedback and current task plan.",
-    "completionCriteria": "Plan is shortened, reordered, or clarified.",
-    "failureRisk": "Ignoring feedback and repeating the same plan."
+    "inputNeeded": "用户反馈、当前任务流、已完成任务和剩余时间。",
+    "completionCriteria": "计划被缩短、降级、重排或重新追问。",
+    "failureRisk": "忽略反馈并重复原计划，导致用户继续卡住。"
   },
   {
     "id": "task-summarize-priority-decision",
-    "name": "Summarize priority decision",
-    "description": "Explain why one item should happen before another.",
+    "name": "输出阶段总结",
+    "description": "总结当前阶段的判断、已完成内容和下一步依据。",
     "difficulty": "low",
     "estimatedMinutes": 4,
-    "inputNeeded": "Prioritized topics or tasks.",
-    "completionCriteria": "The top priority and rationale are stated.",
-    "failureRisk": "Giving a ranking without a usable reason."
+    "inputNeeded": "优先级结果、当前任务状态和反馈节点。",
+    "completionCriteria": "用户能看懂为什么下一步应该这样安排。",
+    "failureRisk": "只给排序不解释依据，用户难以信任计划。"
   },
   {
     "id": "task-mark-skip-items",
-    "name": "Mark skip items",
-    "description": "Identify low-yield work that should be skipped under time pressure.",
+    "name": "生成下一步任务",
+    "description": "根据当前优先级和压缩范围生成下一步要执行、跳过或延后的任务。",
     "difficulty": "medium",
     "estimatedMinutes": 5,
-    "inputNeeded": "Scope list and urgency.",
-    "completionCriteria": "Skip items and risks are explicitly named.",
-    "failureRisk": "Pretending the user can cover everything."
+    "inputNeeded": "压缩后的范围、用户反馈和剩余时间。",
+    "completionCriteria": "下一步任务明确包含动作、时长和完成标准。",
+    "failureRisk": "只说明跳过哪些内容，却没有给出下一步行动。"
   },
   {
     "id": "task-create-self-check",
-    "name": "Create self-check",
-    "description": "Create a quick check for whether the user has understood the current unit.",
+    "name": "生成检查清单",
+    "description": "生成快速检查清单，用来判断当前知识点或任务是否达标。",
     "difficulty": "medium",
     "estimatedMinutes": 6,
-    "inputNeeded": "Completed concept or practice task.",
-    "completionCriteria": "Self-check question and pass/fail next action are defined.",
-    "failureRisk": "Using a check that is too easy to reveal misunderstanding."
+    "inputNeeded": "已讲解内容、练习任务和完成标准。",
+    "completionCriteria": "检查清单包含可验证的通过/未通过条件。",
+    "failureRisk": "检查项太宽泛，无法暴露真实薄弱点。"
   },
   {
     "id": "task-log-demo-state",
-    "name": "Log demo state",
-    "description": "Record the current demo stage for frontend display.",
+    "name": "评估任务难度",
+    "description": "评估单个元任务或组合任务的难度等级，供前端展示和计划压缩使用。",
     "difficulty": "low",
-    "estimatedMinutes": 2,
-    "inputNeeded": "Current flow step and selected IDs.",
-    "completionCriteria": "Demo state can be rendered without extra inference.",
-    "failureRisk": "Losing the link between visible UI state and data IDs."
+    "estimatedMinutes": 3,
+    "inputNeeded": "任务描述、输入复杂度、用户时间压力和完成标准。",
+    "completionCriteria": "difficulty 被标记为 low、medium 或 high，并能解释影响因素。",
+    "failureRisk": "低估难度，导致计划过满或用户无法完成。"
+  },
+  {
+    "id": "task-diagnose-weak-points",
+    "name": "诊断薄弱知识点",
+    "description": "根据用户卡点、错题模式和反馈判断最需要补的知识点。",
+    "difficulty": "high",
+    "estimatedMinutes": 11,
+    "inputNeeded": "错题记录、卡点描述、练习反馈或截图内容。",
+    "completionCriteria": "输出 1 到 3 个薄弱知识点，并给出对应补救任务。",
+    "failureRisk": "只复述用户说不会，没有定位到可补救的知识缺口。"
+  },
+  {
+    "id": "task-estimate-execution-time",
+    "name": "估算执行时间",
+    "description": "为单个元任务估算可执行分钟数，给组合计划提供时间预算。",
+    "difficulty": "medium",
+    "estimatedMinutes": 5,
+    "inputNeeded": "任务目标、难度、输入材料和用户时间限制。",
+    "completionCriteria": "输出正数分钟估算，并标明是否需要压缩范围。",
+    "failureRisk": "估算过粗，导致前端展示的计划无法落地。"
   }
 ]

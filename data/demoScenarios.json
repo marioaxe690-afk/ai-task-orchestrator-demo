@@ -1,84 +1,92 @@
 [
   {
     "id": "scenario-exam-rescue",
-    "title": "临考救急编排流",
+    "title": "数学视频截图临考救急",
     "userInputCaseId": "case-math-video-exam-rescue",
     "flow": [
-      "Read image plus deadline text",
-      "Detect exam rescue and review plan intents",
-      "Classify as emergency_task",
-      "Extract core knowledge points",
-      "Compress review scope and build timebox plan",
-      "Ask whether the plan is too full"
+      "用户输入：图片 + 文本，用户说“明天就要考数学了，这个还没看懂”。",
+      "意图识别：识别出临考救急、制定计划、多模态理解。",
+      "任务类型判断：判定为 emergency_task，同时保留截图理解任务。",
+      "是否需要追问：不追问，先基于截图和考试时间给最小可执行计划。",
+      "任务拆解：提取截图内容、提取知识点、判断优先级、压缩范围、安排时间盒。",
+      "难度时间评估：标记为 high，估算每个元任务分钟数并限制总复习时长。",
+      "反馈闭环：询问计划是否过满；若过满则压缩范围，若可接受则进入第一段复习。"
     ],
-    "demoHighlight": "Shows how an urgent multimodal request becomes a compressed task plan instead of a long lesson."
+    "demoHighlight": "展示系统如何把临考多模态求助转成任务编排，而不是只讲数学题。"
   },
   {
     "id": "scenario-screenshot-solve",
-    "title": "截图解题编排流",
-    "userInputCaseId": "case-math-question-solve",
-    "flow": [
-      "Read screenshot context",
-      "Detect solve problem and concept explanation intents",
-      "Classify as multimodal_task",
-      "Extract knowledge points",
-      "Explain concept and solve stepwise",
-      "Attach self-check feedback"
-    ],
-    "demoHighlight": "Shows how solving a screenshot is split into recognition, concept, solution, and feedback."
-  },
-  {
-    "id": "scenario-ambiguous-input",
-    "title": "模糊输入追问流",
+    "title": "表意模糊的数学截图求助",
     "userInputCaseId": "case-this-one-unknown",
     "flow": [
-      "Read short vague input",
-      "Detect clarification intent",
-      "Classify as ambiguous_task",
-      "Mark needsClarification true",
-      "Ask one targeted question"
+      "用户输入：用户只说“这个不会”，没有明确题目、目标或截图区域。",
+      "意图识别：识别出澄清目标。",
+      "任务类型判断：判定为 ambiguous_task。",
+      "是否需要追问：needsClarification 为 true，必须先问最小问题。",
+      "任务拆解：读取输入、判断目标、判断是否需要追问、生成追问问题。",
+      "难度时间评估：标记为 low，预计只需要短追问，不进入完整计划。",
+      "反馈闭环：用户回答后再选择解题、知识点讲解或复习计划模板。"
     ],
-    "demoHighlight": "Shows that the system avoids guessing when the input object is missing."
+    "demoHighlight": "展示系统在信息不足时先澄清，而不是猜测用户要解哪道题。"
   },
   {
-    "id": "scenario-priority-first",
-    "title": "先判断优先级流",
-    "userInputCaseId": "case-prioritize-first",
+    "id": "scenario-tonight-plan",
+    "title": "今晚三小时高数复习计划",
+    "userInputCaseId": "case-tonight-review-plan",
     "flow": [
-      "Detect priority judgment intent",
-      "Classify as simple_atomic_task",
-      "Extract candidate topics",
-      "Rank high-yield topics",
-      "Summarize priority decision before teaching"
+      "用户输入：纯文本，用户要求今晚 3 小时复习计划。",
+      "意图识别：识别出制定计划和估算时间。",
+      "任务类型判断：判定为 complex_composite_task。",
+      "是否需要追问：不追问，时间窗口和目标已经明确。",
+      "任务拆解：判断紧急程度、排序高收益内容、安排时间盒、生成练习任务、插入反馈节点。",
+      "难度时间评估：标记为 medium，按三小时总预算分配每段任务。",
+      "反馈闭环：每段结束询问是否完成；未完成则缩短下一段或降低解释难度。"
     ],
-    "demoHighlight": "Shows priority judgment as its own first-class task, not just a side note."
-  },
-  {
-    "id": "scenario-plan-adjustment",
-    "title": "反馈后调整计划流",
-    "userInputCaseId": "case-plan-too-full-feedback",
-    "flow": [
-      "Read user's overload feedback",
-      "Detect feedback adjustment and scope compression intents",
-      "Classify as complex_composite_task",
-      "Adjust plan from feedback",
-      "Rebuild a smaller timebox",
-      "Ask whether the new plan is acceptable"
-    ],
-    "demoHighlight": "Shows the feedback loop changing the next plan instead of repeating the original plan."
+    "demoHighlight": "展示固定时间窗口下的任务拆解、耗时估算和阶段反馈。"
   },
   {
     "id": "scenario-learning-route",
-    "title": "多图学习路线流",
+    "title": "多张截图学习路线规划",
     "userInputCaseId": "case-multi-screenshot-learning-route",
     "flow": [
-      "Read multimodal input",
-      "Detect learning route and priority intents",
-      "Classify as multimodal_task",
-      "Extract visible knowledge points",
-      "Map prerequisite order",
-      "Write the next learning action"
+      "用户输入：多张截图 + 文本，用户要求判断先学哪个后学哪个。",
+      "意图识别：识别出任务拆解、判断优先级、多模态理解。",
+      "任务类型判断：判定为 multimodal_task。",
+      "是否需要追问：不追问，先基于可见学习对象生成路线。",
+      "任务拆解：识别截图内容、提取知识点、判断依赖关系、生成学习路线、生成下一步任务。",
+      "难度时间评估：标记为 high，估算路线整理和每个阶段的执行时间。",
+      "反馈闭环：询问路线是否符合课程范围；若不符合则重新排序或压缩范围。"
     ],
-    "demoHighlight": "Shows how several visible learning objects become an ordered route."
+    "demoHighlight": "展示多图输入如何被整理成可执行学习路径。"
+  },
+  {
+    "id": "scenario-problem-analysis",
+    "title": "普通题目解析任务",
+    "userInputCaseId": "case-math-question-solve",
+    "flow": [
+      "用户输入：数学题截图 + 文本，用户要求一步步讲解。",
+      "意图识别：识别出解题、理解知识点、多模态理解。",
+      "任务类型判断：判定为 multimodal_task。",
+      "是否需要追问：不追问，题目对象和输出目标明确。",
+      "任务拆解：识别截图内容、提取题目文字、提取知识点、降低解释难度、步骤解析、生成检查清单。",
+      "难度时间评估：标记为 medium，分别估算识别、讲解、解析和自检时间。",
+      "反馈闭环：询问用户哪一步看不懂；若卡住则回到概念解释或生成更小练习。"
+    ],
+    "demoHighlight": "展示题目解析也先经过识别、分类和拆解，而不是直接给答案。"
+  },
+  {
+    "id": "scenario-plan-adjustment",
+    "title": "计划过满后的压缩调整任务",
+    "userInputCaseId": "case-plan-too-full-feedback",
+    "flow": [
+      "用户输入：纯文本反馈，用户说计划太满做不完。",
+      "意图识别：识别出生成反馈和压缩任务范围。",
+      "任务类型判断：判定为 complex_composite_task。",
+      "是否需要追问：不追问，反馈方向明确，可以直接调整。",
+      "任务拆解：读取反馈、压缩任务范围、重新安排时间盒、生成下一步任务、创建反馈节点。",
+      "难度时间评估：标记为 medium，重新估算压缩后的任务总时长。",
+      "反馈闭环：询问新计划是否可接受；若仍过满则继续删除低收益任务或重新追问目标。"
+    ],
+    "demoHighlight": "展示反馈闭环如何真正改变下一步，而不是重复原计划。"
   }
 ]

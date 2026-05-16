@@ -1,72 +1,72 @@
 [
   {
     "id": "intent_exam_rescue",
-    "name": "Exam rescue",
-    "description": "The user has very limited time before a test and needs a compressed, high-yield plan."
+    "name": "临考救急",
+    "description": "用户处于考试前高压状态，需要压缩范围、优先级判断和可立即执行的补救计划。"
   },
   {
     "id": "intent_solve_problem",
-    "name": "Solve problem",
-    "description": "The user wants help solving a specific question or screenshot."
+    "name": "解题",
+    "description": "用户希望针对某一道题或截图内容获得解题路径、步骤说明或结果解释。"
   },
   {
     "id": "intent_clarify_input",
-    "name": "Clarify input",
-    "description": "The request is underspecified and should be clarified before execution."
+    "name": "澄清目标",
+    "description": "用户表达不完整或对象不明确，需要先追问目标、材料或期望输出。"
   },
   {
     "id": "intent_review_plan",
-    "name": "Review plan",
-    "description": "The user wants a structured study or review schedule."
+    "name": "制定计划",
+    "description": "用户需要把复习、练习或补救动作组织成可执行的时间安排。"
   },
   {
     "id": "intent_learning_route",
-    "name": "Learning route",
-    "description": "The user wants topics ordered into a learning sequence."
+    "name": "任务拆解",
+    "description": "用户需要把多个知识点、截图或学习对象拆成有顺序的学习路线。"
   },
   {
     "id": "intent_priority_judgment",
-    "name": "Priority judgment",
-    "description": "The user wants to know what matters most before doing detailed work."
+    "name": "判断优先级",
+    "description": "用户想先知道哪些内容最重要、最该先做、哪些可以暂缓或跳过。"
   },
   {
     "id": "intent_scope_compression",
-    "name": "Scope compression",
-    "description": "The user wants a large study range reduced to a smaller high-yield subset."
+    "name": "压缩任务范围",
+    "description": "用户要求在有限时间内缩小学习范围，只保留最高收益任务。"
   },
   {
     "id": "intent_concept_explanation",
-    "name": "Concept explanation",
-    "description": "The user wants a concept explained before practice or solution steps."
+    "name": "理解知识点",
+    "description": "用户想先理解概念、公式、方法或视频中出现的知识点，再进入练习。"
   },
   {
     "id": "intent_feedback_adjustment",
-    "name": "Feedback adjustment",
-    "description": "The user gives feedback and expects the next plan to change."
+    "name": "生成反馈",
+    "description": "用户给出完成情况、困难或计划过满等反馈，需要系统调整下一步。"
   },
   {
     "id": "intent_error_review",
-    "name": "Error review",
-    "description": "The user wants wrong answers or weak areas diagnosed and reviewed."
+    "name": "错题整理",
+    "description": "用户需要根据错题、错误原因或薄弱点整理复盘任务。"
   },
   {
     "id": "intent_timeboxing",
-    "name": "Timeboxing",
-    "description": "The user has a fixed time budget and needs a bounded task loop."
+    "name": "估算时间",
+    "description": "用户有固定时间窗口，需要估算耗时并安排时间盒。"
   },
   {
     "id": "intent_multimodal_understanding",
-    "name": "Multimodal understanding",
-    "description": "The user provides an image or image plus text that must be interpreted."
+    "name": "多模态理解",
+    "description": "用户提供图片、截图或图片加文字，需要同时理解视觉材料和文本意图。"
   },
   {
     "id": "intent_atomic_execution",
-    "name": "Atomic execution",
-    "description": "The user needs one small task completed without a larger plan."
+    "name": "识别内容",
+    "description": "用户只需要完成一个小的识别、判断或说明任务，不需要完整组合计划。"
   },
   {
     "id": "intent_composite_planning",
-    "name": "Composite planning",
-    "description": "The user needs multiple dependent tasks arranged into an executable workflow."
+    "name": "调整学习路径",
+    "description": "用户需要多个相互依赖的任务组成闭环，并根据反馈继续调整路径。"
   }
 ]
